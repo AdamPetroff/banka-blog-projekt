@@ -1,0 +1,27 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block content %}
+    <a href="{{ path('admin_blog_new_article') }}">Nový článok</a>
+
+    <h2>Articles</h2>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Názov</th>
+            <th>Id</th>
+            <th>Vytvorené</th>
+            <th></th>
+        </tr>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.name }}</td>
+            <td>{{ article.id }}</td>
+            <td>{{ article.createdAt|date('d. m. Y H:i') }}</td>
+            <td>
+                <a href="{{ path('admin_blog_edit_article', {'id': article.id}) }}">Upraviť</a>
+                <a target="_blank" href="{{ path('front_display_article', {'url': article.url}) }}">Náhľad</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{%  endblock %}

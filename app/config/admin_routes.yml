@@ -1,0 +1,52 @@
+admin_blog_index:
+    path: /
+    defaults:
+        _controller: AppBundle:Admin/Blog:index
+
+admin_blog_edit_article:
+    path: /article/{id}
+    defaults:
+        _controller: AppBundle:Admin/Blog:editArticle
+
+admin_blog_new_article:
+    path: /new_article
+    defaults:
+        _controller: AppBundle:Admin/Blog:newArticle
+
+admin_article_manage_comments:
+    path: /manage_comments/{id}
+    defaults:
+        _controller: AppBundle:Admin/Blog:manageComments
+
+admin_blog_delete_comment:
+    path: /delete_comment
+    condition: request.isXmlHttpRequest()
+    defaults:
+        _controller: AppBundle:Admin/Blog:deleteComment
+
+
+
+admin_login:
+    path: /login
+    defaults:
+        _controller: AppBundle:Admin/Security:login
+
+admin_forgotten_password:
+    path: /forgotten_password
+    defaults:
+        _controller: AppBundle:Admin/Security:forgottenPassword
+
+admin_admins:
+    path: /admins
+    defaults:
+        _controller: AppBundle:Admin/Security:admins
+
+admin_account:
+    path: /admin_account/{id}
+    defaults:
+        _controller: AppBundle:Admin/Security:editAdmin
+
+admin_security_new_admin:
+    path: /new_admin
+    defaults:
+        _controller: AppBundle:Admin/Security:newAdmin

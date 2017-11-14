@@ -1,0 +1,65 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+parameters:
+    admin_logout_target: /admin/login
+security:
+    encoders:
+        AppBundle\Entity\Admin: bcrypt
+        AppBundle\Entity\User: bcrypt
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        admin_provider:
+            entity:
+                class: AppBundle:Admin
+                property: username
+        user_provider:
+            entity:
+                class: AppBundle:User
+                property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin:
+            pattern: ^/admin/
+            provider: admin_provider
+            anonymous: ~
+            guard:
+                authenticators:
+                    - app.security.admin_login_authenticator
+            logout:
+                path: /admin/logout
+                target: '%admin_logout_target%'
+                success_handler: admin_logout_success_handler
+            remember_me:
+                secret: %secret%
+                remember_me_parameter: admin_login[_remember_me]
+                lifetime: 604800
+                path: admin/
+
+        user:
+            pattern: ^/
+            provider: user_provider
+            anonymous: ~
+            guard:
+                authenticators:
+                    - app.security.user_login_authenticator
+            logout:
+                path: /logout
+                target: /
+            remember_me:
+                name: REMEMBERMEFRONT
+                secret: "%secret%"
+                remember_me_parameter: user_login[_remember_me]
+                lifetime: 604800
+                path: /
+
+    access_control:
+        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/forgotten_password, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }

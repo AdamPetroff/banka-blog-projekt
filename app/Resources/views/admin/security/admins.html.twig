@@ -1,0 +1,24 @@
+{% extends ':admin:layout.html.twig' %}
+
+{% block content %}
+    <h1>Admini</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>Meno</th>
+            <th>Email</th>
+            <th>Povolenia</th>
+            <th>Naposledy prihlásený</th>
+            <th></th>
+        </tr>
+        {% for admin in admins %}
+            <tr>
+                <td>{{ admin.username }}</td>
+                <td>{{ admin.email }}</td>
+                <td>{{ admin.roles|join(',') }}</td>
+                <td>{{ admin.lastLogin|date('d. m. Y H:i') }}</td>
+                <td><a href="{{ path('admin_account', {'id' : admin.getId()}) }}">Upraviť</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a class="btn btn-info" href="{{ path('admin_security_new_admin') }}">Nový Admin</a>
+{% endblock %}

@@ -1,0 +1,9 @@
+front:
+    resource: "front_routes.yml"
+
+admin:
+    resource: "admin_routes.yml"
+    prefix:   /admin
+
+logout:
+    path: /admin/logout
