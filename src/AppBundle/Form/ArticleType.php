@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Article;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,8 +21,7 @@ class ArticleType extends AbstractType
             ->add('url', TextType::class, ['label' => 'Seo cesta (nepovinné)', 'required' => false])
             ->add('perex')
             ->add('text', CKEditorType::class, ['config' => ['height' => '500px', 'language' => 'sk']])
-            ->add('tmpMainImgFile', FileType::class,
-                ['required' => false, 'label' => 'Hlavný obrázok', 'data_class' => null])
+            ->add('main_img_url', HiddenType::class)
             ->add('submit', SubmitType::class, [
                 'attr' => ['formnovalidate' => true, 'label' => 'Uložiť']
             ]);

@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\front;
 
 
+use AppBundle\Service\WeatherApi;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,15 @@ class HomepageController extends Controller
      * @var TwigEngine
      */
     private $twig;
+    /**
+     * @var WeatherApi
+     */
+    private $weatherApi;
 
-    public function __construct(TwigEngine $twig)
+    public function __construct(TwigEngine $twig, WeatherApi $weatherApi)
     {
         $this->twig = $twig;
+        $this->weatherApi = $weatherApi;
     }
 
     /**
@@ -30,6 +36,13 @@ class HomepageController extends Controller
      */
     public function defaultAction()
     {
+        $client = new Predis\Client([
+            'scheme' => 'tcp',
+            'host'   => '10.0.0.1',
+            'port'   => 6379,
+        ]);
+        dump(date('d.m.Y H:i', 1510754400));
+        $this->weatherApi->getWeather();
         return $this->twig->renderResponse('front/homepage/index.html.twig');
     }
 }

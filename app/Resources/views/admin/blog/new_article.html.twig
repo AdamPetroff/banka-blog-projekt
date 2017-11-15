@@ -6,4 +6,62 @@
     {{ form_start(form_edit) }}
     {{ form_widget(form_edit) }}
     {{ form_end(form_edit) }}
+
+    <div id="main-image" style="background: rgba(255,151,150,0.31); width: 50px; height:50px"></div>
+
+    <a class="btn btn-primary" href="#" id="upload_widget_opener">Nahrať obrázky</a>
+
+    <div id="uploaded-pictures">
+        <img height="auto" width="200px" class="uploaded-image" src="http://res.cloudinary.com/dtvyizqxr/image/upload/v1510739879/udvasoxqsevrc9odgtcm.png" />
+        <img height="auto" width="200px" class="uploaded-image" src="http://res.cloudinary.com/dtvyizqxr/image/upload/v1510739879/udvasoxqsevrc9odgtcm.png" />
+    </div>
+
+    <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#upload_widget_opener").click(function() {
+            cloudinary.openUploadWidget({
+                cloud_name: 'dtvyizqxr',
+                upload_preset: 'c7whtcwb',
+                sources: ["local", "url"],
+                text: {
+                    "sources.local.title": "Moje súbory",
+                    "sources.local.drop_file": "Presuň súbor sem",
+                    "sources.local.drop_files": "Presuň súbory sem",
+                    "sources.local.drop_or": "alebo",
+                    "sources.local.select_file": "Vyber súbor",
+                    "sources.local.select_files": "Vyber súbory",
+                    "sources.url.title": "Webová Adresa",
+                    "sources.url.note": "Webová adresa obrázku",
+                    "sources.url.upload": "Nahrať",
+                    "sources.url.error": "Please type a valid HTTP URL.",
+                    "progress.uploading": "Nahráva sa...",
+                    "progress.upload_cropped": "Nahrať",
+                    "progress.processing": "Spracováva sa...",
+                    "progress.retry_upload": "Skúsiť znova",
+                    "progress.use_succeeded": "OK",
+                    "progress.failed_note": "Niektoré súbory sa nepodarilo nahrať."
+                }
+            },
+            function(error, result) {
+                if(error) {
+                    alert(error);
+                } else {
+                    var div = $('#uploaded-pictures');
+                    result.forEach(function(item) {
+                        var img = $('<img height="auto" width="200px" class="uploaded-image" />');
+                        img.prop('src', item.secure_url);
+                        div.append(img);
+                    })
+                }
+            });
+        });
+
+        $('.uploaded-image').on('dblclick', function(){
+            var $this = $(this);
+            $this.toggleClass('selected-image', '');
+            $this.siblings().removeClass('selected-image');
+        });
+
+        $('[name="article[mainImgUrl]"]').val($this.attr('src'));
+    </script>
 {% endblock %}

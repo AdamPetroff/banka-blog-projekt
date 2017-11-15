@@ -78,11 +78,11 @@ class Article
     protected $deleted;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(nullable=true)
      */
-    protected $main_img;
+    protected $main_img_url;
 
     /**
      * @var array
@@ -95,12 +95,6 @@ class Article
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
      */
     protected $comments;
-
-    /**
-     * @var UploadedFile
-     * @Assert\Image()
-     */
-    protected $tmpMainImgFile;
 
     public function __construct()
     {
@@ -239,26 +233,6 @@ class Article
     }
 
     /**
-     * Set mainImg
-     *
-     * @param string $mainImg
-     */
-    public function setMainImg($mainImg) 
-    {
-        $this->main_img = $mainImg;
-    }
-
-    /**
-     * Get mainImg
-     *
-     * @return string
-     */
-    public function getMainImg() : ?string
-    {
-        return $this->main_img;
-    }
-
-    /**
      * Set images
      *
      * @param array $images
@@ -299,30 +273,6 @@ class Article
     }
 
     /**
-     * @return null|string
-     */
-    public function getImageDir() : ?string
-    {
-        return $this->getId() ? '/assets/images/articles/' . $this->getId() . '/' : null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isMainImg() : bool
-    {
-        return $this->getMainImg() && file_exists(WEB_DIR . $this->getImageDir() . $this->getMainImg());
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getMainImagePath() : ?string
-    {
-        return !empty($this->getMainImg()) && !($this->getMainImg() instanceof UploadedFile && $this->isMainImg()) ? $this->getImageDir() . $this->getMainImg() : null;
-    }
-
-    /**
      * @return Comment[]|Collection
      */
     public function getComments() : Collection
@@ -359,18 +309,18 @@ class Article
     }
 
     /**
-     * @return UploadedFile
+     * @return null|string
      */
-    public function getTmpMainImgFile() : ?UploadedFile
+    public function getMainImgUrl()
     {
-        return $this->tmpMainImgFile;
+        return $this->main_img_url;
     }
 
     /**
-     * @param UploadedFile $tmpMainImgFile
+     * @param null|string $main_img_url
      */
-    public function setTmpMainImgFile($tmpMainImgFile) 
+    public function setMainImgUrl($main_img_url)
     {
-        $this->tmpMainImgFile = $tmpMainImgFile;
+        $this->main_img_url = $main_img_url;
     }
 }

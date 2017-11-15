@@ -87,6 +87,7 @@ class BlogController extends Controller
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
             $this->articleManager->saveArticle($form->getData());
             $this->session->getFlashBag()->add('success', 'The item was saved successfully');
 

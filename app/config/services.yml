@@ -60,3 +60,7 @@ services:
     app.utils.security_utils:
         class: AppBundle\Utils\SecurityUtils
         arguments: ['@request_stack']
+
+    app.service.weather_api:
+        class: AppBundle\Service\WeatherApi
+        arguments: ['%open_weather_map_api_key%', '%open_weather_map_city_id%']
