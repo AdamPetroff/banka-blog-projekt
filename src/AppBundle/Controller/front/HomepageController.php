@@ -9,7 +9,10 @@
 namespace AppBundle\Controller\front;
 
 
+use AppBundle\Service\ArticleManager;
+use AppBundle\Service\NameDay;
 use AppBundle\Service\WeatherApi;
+use Predis\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,11 +27,21 @@ class HomepageController extends Controller
      * @var WeatherApi
      */
     private $weatherApi;
+    /**
+     * @var NameDay
+     */
+    private $nameDay;
+    /**
+     * @var ArticleManager
+     */
+    private $articleManager;
 
-    public function __construct(TwigEngine $twig, WeatherApi $weatherApi)
+    public function __construct(TwigEngine $twig, WeatherApi $weatherApi, NameDay $nameDay, ArticleManager $articleManager)
     {
         $this->twig = $twig;
         $this->weatherApi = $weatherApi;
+        $this->nameDay = $nameDay;
+        $this->articleManager = $articleManager;
     }
 
     /**
@@ -36,13 +49,11 @@ class HomepageController extends Controller
      */
     public function defaultAction()
     {
-        $client = new Predis\Client([
-            'scheme' => 'tcp',
-            'host'   => '10.0.0.1',
-            'port'   => 6379,
+        return $this->twig->renderResponse('front/homepage/index.html.twig', [
+            'weather' => $this->weatherApi->getWeather(),
+            'nameday' => $this->nameDay->getNameDay(),
+//            'articles' => $this->articleManager->getPresentable()
+            'articles' => []
         ]);
-        dump(date('d.m.Y H:i', 1510754400));
-        $this->weatherApi->getWeather();
-        return $this->twig->renderResponse('front/homepage/index.html.twig');
     }
 }

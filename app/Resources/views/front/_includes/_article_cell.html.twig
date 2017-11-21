@@ -1,0 +1,6 @@
+<div>
+    <h2><a href="{{ path('front_display_article', {'url': article.url}) }}">{{ article.name }}</a></h2>
+    <img width="100px" src="{{ article.mainImgUrl }}" />
+    <p>{{ article.perex }}</p>
+    <span>{{ article.created_at|date('d. m. Y H:i') }}</span>
+</div>

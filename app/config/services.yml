@@ -63,4 +63,16 @@ services:
 
     app.service.weather_api:
         class: AppBundle\Service\WeatherApi
-        arguments: ['%open_weather_map_api_key%', '%open_weather_map_city_id%']
+        arguments: ['@app.service.redis', '%open_weather_map_api_key%', '%open_weather_map_city_id%']
+
+    app.service.name_day:
+        class: AppBundle\Service\NameDay
+
+    app.service.redis:
+        class: Predis\Client
+
+    app.twig.globals:
+        class: AppBundle\Extensions\GlobalsTwigExtension
+        arguments: ['@app.service.weather_api', '@app.service.name_day']
+        tags:
+            - { name: twig.extension }

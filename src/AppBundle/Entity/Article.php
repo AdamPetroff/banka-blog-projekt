@@ -96,10 +96,18 @@ class Article
      */
     protected $comments;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $approved;
+
     public function __construct()
     {
         $this->setDeleted(false);
         $this->setDisplay(true);
+        $this->setApproved(false);
     }
 
     /**
@@ -322,5 +330,21 @@ class Article
     public function setMainImgUrl($main_img_url)
     {
         $this->main_img_url = $main_img_url;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApproved(): bool
+    {
+        return $this->approved;
+    }
+
+    /**
+     * @param bool $approved
+     */
+    public function setApproved(bool $approved)
+    {
+        $this->approved = $approved;
     }
 }

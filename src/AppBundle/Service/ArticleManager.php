@@ -113,4 +113,9 @@ class ArticleManager
     {
         return $this->repository->findNonDeleted();
     }
+
+    public function getPresentable(): array
+    {
+        return $this->repository->findBy(['deleted' => false, 'approved' => true], ['created_at' => 'DESC']);
+    }
 }
