@@ -10,10 +10,8 @@ namespace AppBundle\Extensions;
 
 use AppBundle\Service\NameDay;
 use AppBundle\Service\WeatherApi;
-use Twig_Extension;
-use Twig_Extension_GlobalsInterface;
 
-class GlobalsTwigExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
+class GlobalsTwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
     /**
      * @var WeatherApi
@@ -50,6 +48,6 @@ class GlobalsTwigExtension extends Twig_Extension implements Twig_Extension_Glob
      */
     public function getName()
     {
-       return 'globals';
+       return 'app.twig.globals';
     }
 }

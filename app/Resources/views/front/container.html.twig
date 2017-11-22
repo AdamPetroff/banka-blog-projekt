@@ -1,7 +1,18 @@
 {% extends 'front/layout.html.twig' %}
 
 {% block containerFluid %}
-    <div class="container">
-        {% block content %}{% endblock content %}
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="container-fluid">
+                {% include 'front/_includes/_sidebar.html.twig' %}
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="container-fluid">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
     </div>
+
+
 {% endblock containerFluid %}

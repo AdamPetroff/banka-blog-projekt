@@ -16,14 +16,14 @@ class UserRegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username', null, ['label' => 'Prihlasovacie meno'])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat password'],
+                'first_options' => ['label' => 'Heslo'],
+                'second_options' => ['label' => 'Heslo znovu (kontrola)'],
             ])
             ->add('email', EmailType::class)
-            ->add('Sign up!', SubmitType::class);
+            ->add('Zaregistrovať sa', SubmitType::class);
 
         return $builder;
     }

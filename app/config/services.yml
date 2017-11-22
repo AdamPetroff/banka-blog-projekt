@@ -76,3 +76,8 @@ services:
         arguments: ['@app.service.weather_api', '@app.service.name_day']
         tags:
             - { name: twig.extension }
+
+    app.twig.temperature:
+        class: AppBundle\Extensions\TemperatureTwigExtension
+        tags:
+            - { name: twig.extension }

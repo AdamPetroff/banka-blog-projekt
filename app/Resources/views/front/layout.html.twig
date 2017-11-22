@@ -10,17 +10,20 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="navbar-brand">
+            <img width="70px" src="{{ asset('assets/images/banka-logo.png') }}">
+        </div>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ path('front_homepage') }}">Hlavná stránka</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('front_blog_index') }}">Blog</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ path('front_homepage') }}">Hlavná stránka</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ path('front_blog_index') }}">Blog</a></li>
             </ul>
             <ul class="navbar-nav navbar-right">
                 {% if is_granted('ROLE_USER') %}
-                    <li class="nav-item"><a class="nav-link" href="{{ logout_path() }}">Odhlásiť sa</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{{ logout_path() }}">Odhlásiť sa</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{{ path('front_login') }}">Prihlásiť sa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ path('front_register') }}">Registrovať</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{{ path('front_login') }}">Prihlásiť sa</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{{ path('front_register') }}">Registrovať</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -34,7 +37,5 @@
     <footer class="text-center">
         This is a footer
     </footer>
-
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 </body>
 </html>

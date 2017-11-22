@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -72,6 +73,9 @@ class SecurityController extends Controller
     public function loginAction()
     {
         $error = $this->authenticationUtils->getLastAuthenticationError();
+//        if($error instanceof UsernameNotFoundException) {
+//            $errorMessage = 'Prihlasovacie meno nebolo nájdené';
+//        }
         $lastUsername = $this->securityUtils->getLastUserUsername();
         $form = $this->formFactory->create(UserLoginType::class, ['_username' => $lastUsername]);
 
@@ -97,7 +101,7 @@ class SecurityController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $this->userManager->saveNew($form->getData());
-            $this->session->getFlashBag()->add('success', 'You have been successfully registered. You can log in now!');
+            $this->session->getFlashBag()->add('success', 'Registrácia bola úspešná. Môžte sa prihlásiť.');
             return $this->redirect($this->router->generate('front_login'));
         }
 

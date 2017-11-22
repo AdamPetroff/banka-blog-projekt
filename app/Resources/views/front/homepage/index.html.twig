@@ -1,9 +1,6 @@
 {% extends 'front/container.html.twig' %}
 
 {% block content %}
-    <p>Welcome to the most amazing page in the universe. Feel free to explore the links.</p>
-    {% include 'front/_includes/_sidebar.html.twig' %}
-
     {% for article in articles %}
         {% include 'front/_includes/_article_cell.html.twig' %}
     {% endfor %}

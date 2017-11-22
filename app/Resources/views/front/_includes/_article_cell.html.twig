@@ -1,6 +1,14 @@
-<div>
-    <h2><a href="{{ path('front_display_article', {'url': article.url}) }}">{{ article.name }}</a></h2>
-    <img width="100px" src="{{ article.mainImgUrl }}" />
-    <p>{{ article.perex }}</p>
-    <span>{{ article.created_at|date('d. m. Y H:i') }}</span>
+<div class="well article-cell">
+    <a href="{{ path('front_display_article', {'url': article.url}) }}">
+        <div class="media">
+            <div class="media-left">
+                <img width="250px" class="media-object" src="{{ article.mainImgUrl }}" />
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ article.name }}</h4>
+                <small class="text-right"><i>{{ article.createdAt|date('d. m. Y H:i') }}</i></small>
+                <p>{{ article.perex }}</p>
+            </div>
+        </div>
+    </a>
 </div>

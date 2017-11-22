@@ -13,10 +13,10 @@ class UserLoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('_username')
-            ->add('_password', PasswordType::class)
-            ->add('_remember_me', CheckboxType::class, ['required' => false])
-            ->add('login', SubmitType::class);
+            ->add('_username', null, ['label' => 'Prihlasovacie meno'])
+            ->add('_password', PasswordType::class, ['label' => 'Heslo'])
+            ->add('_remember_me', CheckboxType::class, ['required' => false, 'label' => 'Zapamätať si ma'])
+            ->add('login', SubmitType::class, ['label' => 'Prihlásiť sa']);
 
         return $builder;
     }

@@ -125,7 +125,7 @@ class Article
      *
      * @param \DateTime $createdAt
      */
-    public function setCreatedAt($createdAt) 
+    public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
     }

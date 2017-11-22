@@ -8,7 +8,7 @@
 }
 
 body{
-    padding-top: 70px;
+    padding-top: 110px;
 }
 
 #uploaded-pictures{
@@ -19,4 +19,29 @@ body{
 
 .selected-image{
     border: 3px solid red;
+}
+
+.article-cell, .sidebar-cell{
+    box-shadow: 1px 1px 4px #888;
+    background-color: rgba(0, 95, 255, 0.05);
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.article-cell img {
+    padding-right: 10px;
+}
+
+.article-cell a, .article-cell a:hover, .article-cell a:link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.article-cell p{
+    margin-bottom: 0;
+}
+
+.navbar{
+    background-image: url('../images/banka-flat.png');
+    background-size: cover;
 }

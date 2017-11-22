@@ -9,10 +9,8 @@
 namespace AppBundle\Controller\front;
 
 
+use AppBundle\Entity\Article;
 use AppBundle\Service\ArticleManager;
-use AppBundle\Service\NameDay;
-use AppBundle\Service\WeatherApi;
-use Predis\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,23 +22,13 @@ class HomepageController extends Controller
      */
     private $twig;
     /**
-     * @var WeatherApi
-     */
-    private $weatherApi;
-    /**
-     * @var NameDay
-     */
-    private $nameDay;
-    /**
      * @var ArticleManager
      */
     private $articleManager;
 
-    public function __construct(TwigEngine $twig, WeatherApi $weatherApi, NameDay $nameDay, ArticleManager $articleManager)
+    public function __construct(TwigEngine $twig, ArticleManager $articleManager)
     {
         $this->twig = $twig;
-        $this->weatherApi = $weatherApi;
-        $this->nameDay = $nameDay;
         $this->articleManager = $articleManager;
     }
 
@@ -49,11 +37,18 @@ class HomepageController extends Controller
      */
     public function defaultAction()
     {
+        $article = new Article();
+        $article->setApproved(true);
+        $article->setCreatedAt(new \DateTime());
+        $article->setDisplay(true);
+        $article->setPerex('Adam Mdfijf ASSFdf asfjsdnfj sdnfjsdhfu dgsed hufd usdhfui sdhfu sdfuishdf usfui sdhfu.');
+        $article->setText('sdfisuhd gfuihsd fughsudfhg uishfdg iusdfhgu wheifughwsdfhfusdf oisdfhg wufdhgu wdfhg jwdhf uidfgihfgi udfh gihqeruighdf ghidfhgiu sdfhgu dfuig ');
+        $article->setMainImgUrl('http://obrazky.4ever.sk/data/download/zvieratka/zajaciky/zajacik,-mrkva-256782.jpg');
+        $article->setName('Clnocek');
+        $article->setUrl('kokoa');
         return $this->twig->renderResponse('front/homepage/index.html.twig', [
-            'weather' => $this->weatherApi->getWeather(),
-            'nameday' => $this->nameDay->getNameDay(),
 //            'articles' => $this->articleManager->getPresentable()
-            'articles' => []
+            'articles' => [$article]
         ]);
     }
 }
